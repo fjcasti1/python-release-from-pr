@@ -149,3 +149,6 @@ New commit: Bump to version 0.8.0
 
 
 New commit: Bump to version 0.8.1
+
+
+New commit: Bump to version 0.8.2
