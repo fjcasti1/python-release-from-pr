@@ -1,1 +1,1 @@
-# python-release-from-pr
+# python-release-from-prCommit 1
