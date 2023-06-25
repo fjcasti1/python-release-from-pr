@@ -107,3 +107,6 @@ New commit: Bump to version 0.5.4
 
 
 New commit: Bump to version 0.5.5
+
+
+New commit: Bump to version 0.6.0
