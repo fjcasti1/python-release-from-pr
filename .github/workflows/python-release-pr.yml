@@ -1,0 +1,14 @@
+name: "Python Release PR"
+
+on:
+    pull_request:
+        branches: [pysdk/v*]
+
+# concurrency:
+#     group: test-python-${{ github.head_ref }}
+#     cancel-in-progress: true
+
+jobs:
+    lint:
+        name: "Check Python Style"
+        uses: ./.github/workflows/style-python.yml
