@@ -167,3 +167,6 @@ New commit: Bump to version 0.9.0
 
 
 New commit: Bump to version 0.9.1
+
+
+New commit: Bump to version 0.9.2
