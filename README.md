@@ -98,3 +98,6 @@ New commit: Bump to version 0.5.1
 
 
 New commit: Bump to version 0.5.2
+
+
+New commit: Bump to version 0.5.3
