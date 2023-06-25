@@ -86,3 +86,6 @@ New commit: Bump to version 0.4.3
 
 
 New commit: Bump to version 0.4.4
+
+
+New commit: Bump to version 0.4.5
