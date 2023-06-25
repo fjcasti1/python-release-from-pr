@@ -8,3 +8,6 @@ New commit: Bump to version 0.0.1
 
 
 New commit: Bump to version 0.0.2
+
+
+New commit: Bump to version 0.0.3
