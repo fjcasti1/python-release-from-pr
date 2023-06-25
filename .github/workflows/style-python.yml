@@ -27,7 +27,6 @@ env:
 
 jobs:
     lint:
-        name: "Check Python Style"
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
