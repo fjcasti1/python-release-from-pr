@@ -1,0 +1,8 @@
+paths-ignore:
+  # Ignore all protocol generated code
+  - "**/__generated__/**"
+  - "**/__generated__/*"
+  - "**/protocol/**"
+  - "**/protocol/*"
+  - "**/__deprecated__/**"
+  - "**/__deprecated__/*"
