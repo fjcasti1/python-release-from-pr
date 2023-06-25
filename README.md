@@ -8,5 +8,3 @@ New commit: Bump to version 0.0.1
 
 
 New commit: Bump to version 0.0.2
-
-This should not be allowed
