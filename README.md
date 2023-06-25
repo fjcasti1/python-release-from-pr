@@ -59,3 +59,6 @@ New commit: Bump to version 0.3.0
 
 
 New commit: Bump to version 0.3.1
+
+
+New commit: Bump to version 0.3.2
