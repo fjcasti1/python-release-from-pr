@@ -92,3 +92,6 @@ New commit: Bump to version 0.4.5
 
 
 New commit: Bump to version 0.5.0
+
+
+New commit: Bump to version 0.5.1
