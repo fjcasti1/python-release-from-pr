@@ -1,7 +1,7 @@
 import emoji
 import numpy as np
-from my_helper_package.math import scalars as scalar_math
-from my_helper_package.math import vectors as vector_math
+from ilsadvbisnvavojebaij.math import scalars as scalar_math
+from ilsadvbisnvavojebaij.math import vectors as vector_math
 
 
 def main():
