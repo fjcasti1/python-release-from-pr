@@ -122,3 +122,6 @@ New commit: Bump to version 0.6.3
 
 
 New commit: Bump to version 0.6.4
+
+
+New commit: Bump to version 0.6.5
