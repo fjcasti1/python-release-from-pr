@@ -137,3 +137,6 @@ New commit: Bump to version 0.7.2
 
 
 New commit: Bump to version 0.7.3
+
+
+New commit: Bump to version 0.7.4
