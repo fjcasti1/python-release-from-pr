@@ -104,10 +104,10 @@ jobs:
               with:
                   name: dist-files
                   path: dist/
-            # - name: "Publish Python package to Pypi"
-            #   env:
-            #       TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-            #       TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-            #   run: |
-            #       echo "Publishing to Pypi..."
-            #       twine upload --verbose --non-interactive dist/*
+            - name: "Publish Python package to Pypi"
+              env:
+                  TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+                  TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+              run: |
+                  echo "Publishing to Pypi..."
+                  twine upload --verbose --non-interactive dist/*
