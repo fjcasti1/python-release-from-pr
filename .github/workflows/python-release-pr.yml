@@ -111,7 +111,7 @@ jobs:
               run: |
                   echo "Publishing to Pypi..."
                   python3 -m twine upload dist/* --verbose
-                  twine upload dist/* --verbose -u ${{ secrets.PYPI_USERNAME }} -p ${{ secrets.PYPI_PASSWORD }}
+                  twine upload dist/* --verbose --non-interactive -u ${{ secrets.PYPI_USERNAME }} -p ${{ secrets.PYPI_PASSWORD }}
             - name: "Sync to public repo"
               run: |
                   echo "Syncing to public repo..."
