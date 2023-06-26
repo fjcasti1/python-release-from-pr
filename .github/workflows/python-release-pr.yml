@@ -30,7 +30,7 @@ jobs:
             - run: |
                   echo "Running tests..."
     build:
-        needs: [lint, test]
+        # needs: [lint, test]
         name: "Build Python package"
         runs-on: ubuntu-latest
         env:
@@ -51,6 +51,7 @@ jobs:
                   pip install build==${{ env.build-version }}
             - name: Build
               run: |
+                  cd "${{ env.package-dir }}"
                   python3 -m build
             - name: Check wheels
               run: |
