@@ -82,17 +82,17 @@ jobs:
                   python -m pip install --upgrade pip==${{ env.pip-version }}
                   pip install twine==${{ env.twine-version }}
             - name: "Tag commit"
-              run: |
-                  echo "${{ toJson(github) }}"
-            #   uses: actions/github-script@v6
-            #   with:
-            #       script: |
-            #           github.rest.git.createRef({
-            #             owner: context.commit.owner
-            #             repo: context.repo.repo,
-            #             ref: 'refs/tags/<tagname>',
-            #             sha: context.sha
-            #           })
+              #   run: |
+              #       echo "${{ toJson(github) }}"
+              uses: actions/github-script@v6
+              with:
+                  script: |
+                      github.rest.git.createRef({
+                        owner: github.triggering_actor,
+                        repo: context.repo.repo,
+                        ref: 'refs/tags/<tagname>',
+                        sha: context.sha
+                      })
             - name: "Publish Python package to Pypi"
               run: |
                   cd "${{ env.package-dir }}"
