@@ -11,7 +11,10 @@ on:
 #     cancel-in-progress: true
 
 # TODOS:
+<<<<<<< HEAD
 #  - Tag a commit action
+=======
+>>>>>>> pysdk/v0.0.0
 #  - Permissions
 #  - Concurrency settings
 #  - Should we cache artifacts?
@@ -51,10 +54,10 @@ jobs:
               uses: actions/setup-python@v4
               with:
                   python-version: ${{ env.python-version }}
+                  cache: "pip"
+                  cache-dependency-path: ${{ env.publish-req-file }}
             - name: Install dependencies
-              run: |
-                  python -m pip install --upgrade pip==${{ env.pip-version }}
-                  pip install build==${{ env.build-version }} check-wheel-contents==${{ env.check-wheel-contents-version }} twine==${{ env.twine-version }}
+              run: pip install -r ${{ env.publish-req-file }}
             - name: Build
               working-directory: ${{ env.package-dir }}
               run: python3 -m build
