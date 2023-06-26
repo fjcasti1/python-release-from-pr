@@ -1,5 +1,6 @@
 name: "Python Style"
 
+# Dummy comment
 on:
     push:
         branches: [main]
