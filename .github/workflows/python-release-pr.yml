@@ -57,7 +57,7 @@ jobs:
                   ls -alh
             - name: Check wheels
               run: |
-                  ls -alh
+                  cd "${{ env.package-dir }}"
                   python3 -m check_wheel_contents dist/
     publish-package:
         needs: build
