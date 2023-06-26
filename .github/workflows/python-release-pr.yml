@@ -1,6 +1,8 @@
 name: "Python Release PR"
 
 on:
+    push:
+        branches: [pysdk/v*]
     pull_request:
         branches: [pysdk/v*]
 
@@ -27,15 +29,12 @@ jobs:
                   echo "Building package..."
     publish-to-pypi:
         needs: build
-        name: "Publish Python package to Pypi"
+        # if: github.event_name == 'push'
         runs-on: ubuntu-latest
         steps:
-            - run: |
+            - name: "Publish Python package to Pypi"
+              run: |
                   echo "Publishing to Pypi..."
-    publish-to-public-repo:
-        needs: build
-        name: "Sync to public repo"
-        runs-on: ubuntu-latest
-        steps:
-            - run: |
+            - name: "Sync to public repo"
+              run: |
                   echo "Syncing to public repo..."
