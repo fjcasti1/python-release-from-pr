@@ -18,7 +18,6 @@ on:
 #  - Concurrency settings
 #  - Should we cache artifacts?
 # Dummy comment
-# Another Dummy comment
 env:
     python-version: "3.8.16"
     pip-version: 23.1.2
