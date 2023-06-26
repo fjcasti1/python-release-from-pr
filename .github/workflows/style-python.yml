@@ -20,7 +20,7 @@ concurrency:
     cancel-in-progress: true
 
 env:
-    python-version: "3.8.16"
+    python-version: 3.8
     pip-version: 23.1.2
     black-version: 22.3.0
     flake8-version: 5.0.4
