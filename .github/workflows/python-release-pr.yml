@@ -83,7 +83,7 @@ jobs:
                   pip install twine==${{ env.twine-version }}
             - name: "Tag commit"
               run: |
-                  echo "${{ github }}"
+                  echo "${{ toJson(github) }}"
             #   uses: actions/github-script@v6
             #   with:
             #       script: |
