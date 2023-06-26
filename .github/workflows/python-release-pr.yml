@@ -70,7 +70,7 @@ jobs:
                   name: dist-files
                   path: ${{ env.package-dir }}/dist
     publish-package:
-        # needs: build
+        needs: build
         # if: github.event_name == 'push' || github.event_path == 'workflow_dispatch'
         name: "Publish Python Package"
         runs-on: ubuntu-latest
