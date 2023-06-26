@@ -77,11 +77,8 @@ jobs:
         name: "Publish Python Package"
         runs-on: ubuntu-latest
         steps:
-            - name: Download artifacts
-              uses: actions/download-artifact@v3
-              with:
-                  name: dist-files
-                  path: dist/
+            - name: Checkout Repository
+              uses: actions/checkout@v3
             - name: Set up python ${{ env.python-version }}
               id: setup-python
               uses: actions/setup-python@v4
@@ -109,6 +106,11 @@ jobs:
             - name: "Sync to public repo"
               run: |
                   echo "Syncing to public repo..."
+            - name: Download artifacts
+              uses: actions/download-artifact@v3
+              with:
+                  name: dist-files
+                  path: dist/
             # - name: "Publish Python package to Pypi"
             #   env:
             #       TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
