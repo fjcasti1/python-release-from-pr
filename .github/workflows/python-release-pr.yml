@@ -10,6 +10,16 @@ on:
 #     group: test-python-${{ github.head_ref }}
 #     cancel-in-progress: true
 
+# TODOS:
+#  - Fix scope of env variables
+#  - Caching setup python
+#  - Upload/download artifacts
+#  - Caching dependencies
+#  - Concurrency settings
+#  - Permissions
+env:
+    python-version: "3.8.16"
+    pip-version: 23.1.2
 jobs:
     warning:
         name: "Warnning for release PR"
@@ -26,21 +36,56 @@ jobs:
             - run: |
                   echo "Running tests..."
     build:
-        needs: [lint, test]
+        # needs: [lint, test]
         name: "Build Python package"
         runs-on: ubuntu-latest
+        env:
+            package-dir: "./my_helper_package"
+            build-version: 0.10.0
+            check-wheel-contents-version: 0.4.0
         steps:
-            - run: |
-                  echo "Building package..."
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+            - name: Set up python ${{ env.python-version }}
+              uses: actions/setup-python@v4
+              with:
+                  python-version: ${{ env.python-version }}
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip==${{ env.pip-version }}
+                  pip install build==${{ env.build-version }} check-wheel-contents==${{ env.check-wheel-contents-version }}
+            - name: Build
+              run: |
+                  cd "${{ env.package-dir }}"
+                  python3 -m build
+            - name: Check wheels
+              run: |
+                  cd "${{ env.package-dir }}"
+                  python3 -m check_wheel_contents dist/
     publish-package:
         needs: build
         if: github.event_name == 'push'
         name: "Publish Python Package"
         runs-on: ubuntu-latest
+        env:
+            package-dir: "./my_helper_package"
+            twine-version: 4.0.2
         steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+            - name: Set up python ${{ env.python-version }}
+              uses: actions/setup-python@v4
+              with:
+                  python-version: ${{ env.python-version }}
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip==${{ env.pip-version }}
+                  pip install twine==${{ env.twine-version }}
             - name: "Publish Python package to Pypi"
               run: |
+                  cd "${{ env.package-dir }}"
                   echo "Publishing to Pypi..."
+                  python3 -m twine upload dist/* --verbose
             - name: "Sync to public repo"
               run: |
                   echo "Syncing to public repo..."
