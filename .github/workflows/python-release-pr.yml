@@ -47,10 +47,13 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v3
             - name: Set up python ${{ env.python-version }}
+              id: setup-python
               uses: actions/setup-python@v4
               with:
                   python-version: ${{ env.python-version }}
+                  cache: "pip"
             - name: Install dependencies
+              if: steps.setup-python.outputs.cache-hit == 'false'
               run: |
                   python -m pip install --upgrade pip==${{ env.pip-version }}
                   pip install build==${{ env.build-version }} check-wheel-contents==${{ env.check-wheel-contents-version }} twine==${{ env.twine-version }}
@@ -80,10 +83,13 @@ jobs:
                   name: dist-files
                   path: dist/
             - name: Set up python ${{ env.python-version }}
+              id: setup-python
               uses: actions/setup-python@v4
               with:
                   python-version: ${{ env.python-version }}
+                  cache: "pip"
             - name: Install dependencies
+              if: steps.setup-python.outputs.cache-hit == 'false'
               run: |
                   python -m pip install --upgrade pip==${{ env.pip-version }}
                   pip install twine==${{ env.twine-version }}
