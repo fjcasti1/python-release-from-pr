@@ -11,7 +11,6 @@ on:
 #     cancel-in-progress: true
 
 # TODOS:
-#  - Upload/download artifacts
 #  - Caching setup python
 #  - Caching dependencies
 #  - Fix scope of env variables
@@ -41,8 +40,7 @@ jobs:
             - run: |
                   echo "Running tests..."
     build:
-        # FIX ME!!!
-        # needs: [lint, test]
+        needs: [lint, test]
         name: "Build Python package"
         runs-on: ubuntu-latest
         steps:
@@ -81,10 +79,6 @@ jobs:
               with:
                   name: dist-files
                   path: dist/
-            - name: Inspect artifact
-              run: |
-                  ls -ahl
-                  ls -ahl dist/
             - name: Set up python ${{ env.python-version }}
               uses: actions/setup-python@v4
               with:
@@ -107,14 +101,13 @@ jobs:
             #             ref: 'refs/tags/<tagname>',
             #             sha: context.sha
             #           })
+            - name: "Sync to public repo"
+              run: |
+                  echo "Syncing to public repo..."
             - name: "Publish Python package to Pypi"
               env:
                   TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
                   TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
               run: |
                   echo "Publishing to Pypi..."
-                  python3 -m twine upload dist/* --verbose
                   twine upload --verbose --non-interactive dist/*
-            - name: "Sync to public repo"
-              run: |
-                  echo "Syncing to public repo..."
