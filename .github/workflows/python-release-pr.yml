@@ -10,25 +10,32 @@ on:
 
 jobs:
     lint:
-        name: "Check Python Style"
+        name: "Test Python Style"
         uses: ./.github/workflows/style-python.yml
     test:
-        name: "Test"
+        name: "Run Python tests"
         runs-on: ubuntu-latest
         steps:
             - run: |
                   echo "Running tests..."
     build:
         needs: [lint, test]
-        name: "Build package"
+        name: "Build Python package"
         runs-on: ubuntu-latest
         steps:
             - run: |
                   echo "Building package..."
-    deploy:
+    publish-to-pypi:
         needs: build
-        name: "Build package"
+        name: "Publish Python package to Pypi"
         runs-on: ubuntu-latest
         steps:
             - run: |
-                  echo "Building package..."
+                  echo "Publishing to Pypi..."
+    publish-to-public-repo:
+        needs: build
+        name: "Sync to public repo"
+        runs-on: ubuntu-latest
+        steps:
+            - run: |
+                  echo "Syncing to public repo..."
