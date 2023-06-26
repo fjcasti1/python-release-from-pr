@@ -11,9 +11,15 @@ on:
 #     cancel-in-progress: true
 
 # TODOS:
+#  - Fix scope of env variables
+#  - Caching setup python
+#  - Upload/download artifacts
 #  - Caching dependencies
 #  - Concurrency settings
 #  - Permissions
+env:
+    python-version: "3.8.16"
+    pip-version: 23.1.2
 jobs:
     warning:
         name: "Warnning for release PR"
@@ -34,9 +40,7 @@ jobs:
         name: "Build Python package"
         runs-on: ubuntu-latest
         env:
-            python-version: "3.8.16"
             package-dir: "./my_helper_package"
-            pip-version: 23.1.2
             build-version: 0.10.0
             check-wheel-contents-version: 0.4.0
         steps:
@@ -54,7 +58,6 @@ jobs:
               run: |
                   cd "${{ env.package-dir }}"
                   python3 -m build
-                  ls -alh
             - name: Check wheels
               run: |
                   cd "${{ env.package-dir }}"
@@ -64,10 +67,25 @@ jobs:
         if: github.event_name == 'push'
         name: "Publish Python Package"
         runs-on: ubuntu-latest
+        env:
+            package-dir: "./my_helper_package"
+            twine-version: 4.0.2
         steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+            - name: Set up python ${{ env.python-version }}
+              uses: actions/setup-python@v4
+              with:
+                  python-version: ${{ env.python-version }}
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip==${{ env.pip-version }}
+                  pip install twine==${{ env.twine-version }}
             - name: "Publish Python package to Pypi"
               run: |
+                  cd "${{ env.package-dir }}"
                   echo "Publishing to Pypi..."
+                  python3 -m twine upload dist/* --verbose
             - name: "Sync to public repo"
               run: |
                   echo "Syncing to public repo..."
