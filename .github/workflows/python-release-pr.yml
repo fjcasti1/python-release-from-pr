@@ -11,10 +11,7 @@ on:
 #     cancel-in-progress: true
 
 # TODOS:
-<<<<<<< HEAD
 #  - Tag a commit action
-=======
->>>>>>> pysdk/v0.0.0
 #  - Permissions
 #  - Concurrency settings
 #  - Should we cache artifacts?
