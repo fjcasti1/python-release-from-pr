@@ -14,6 +14,7 @@ on:
 #  - Fix scope of env variables
 #  - Caching setup python
 #  - Upload/download artifacts
+#  - Should we cache artifacts?
 #  - Caching dependencies
 #  - Concurrency settings
 #  - Permissions
@@ -36,6 +37,7 @@ jobs:
             - run: |
                   echo "Running tests..."
     build:
+        # FIX ME!!
         # needs: [lint, test]
         name: "Build Python package"
         runs-on: ubuntu-latest
@@ -64,7 +66,7 @@ jobs:
                   python3 -m check_wheel_contents dist/
     publish-package:
         needs: build
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' || github.event_path == 'workflow_dispatch'
         name: "Publish Python Package"
         runs-on: ubuntu-latest
         env:
