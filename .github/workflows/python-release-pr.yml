@@ -19,7 +19,7 @@ on:
 #  - Should we cache artifacts?
 # Dummy comment
 env:
-    python-version: "3.8.16"
+    python-version: 3.8
     pip-version: 23.1.2
     package-dir: "./my_helper_package"
     build-version: 0.10.0
