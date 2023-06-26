@@ -11,13 +11,13 @@ on:
 #     cancel-in-progress: true
 
 # TODOS:
-#  - Fix scope of env variables
-#  - Caching setup python
 #  - Upload/download artifacts
-#  - Should we cache artifacts?
+#  - Caching setup python
 #  - Caching dependencies
-#  - Concurrency settings
+#  - Fix scope of env variables
 #  - Permissions
+#  - Concurrency settings
+#  - Should we cache artifacts?
 env:
     python-version: "3.8.16"
     pip-version: 23.1.2
@@ -64,14 +64,21 @@ jobs:
                   cd "${{ env.package-dir }}"
                   python3 -m check_wheel_contents dist/
                   python3 -m twine check dist/*
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: dist-files
+                  path: ${{ env.package-dir }}/dist
     publish-package:
-        needs: build
-        if: github.event_name == 'push' || github.event_path == 'workflow_dispatch'
+        # needs: build
+        # if: github.event_name == 'push' || github.event_path == 'workflow_dispatch'
         name: "Publish Python Package"
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v3
+            - name: Download artifacts
+              uses: actions/download-artifact@v3
+              with:
+                  name: dist-files
             - name: Set up python ${{ env.python-version }}
               uses: actions/setup-python@v4
               with:
@@ -96,7 +103,6 @@ jobs:
             #           })
             - name: "Publish Python package to Pypi"
               run: |
-                  cd "${{ env.package-dir }}"
                   echo "Publishing to Pypi..."
                   python3 -m twine upload dist/* --verbose
                   twine upload dist/* --verbose
