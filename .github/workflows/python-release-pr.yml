@@ -80,6 +80,10 @@ jobs:
               uses: actions/download-artifact@v3
               with:
                   name: dist-files
+            - name: Inspect artifact
+              run: |
+                  ls -ahl
+                  ls -ahl dist/
             - name: Set up python ${{ env.python-version }}
               uses: actions/setup-python@v4
               with:
