@@ -54,6 +54,7 @@ jobs:
               run: |
                   cd "${{ env.package-dir }}"
                   python3 -m build
+                  ls -alh
             - name: Check wheels
               run: |
                   python3 -m check_wheel_contents dist/
