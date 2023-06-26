@@ -27,9 +27,10 @@ jobs:
         steps:
             - run: |
                   echo "Building package..."
-    publish-to-pypi:
+    publish-package:
         needs: build
         # if: github.event_name == 'push'
+        name: "Publish Python Package"
         runs-on: ubuntu-latest
         steps:
             - name: "Publish Python package to Pypi"
