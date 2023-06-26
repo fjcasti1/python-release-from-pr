@@ -12,3 +12,23 @@ jobs:
     lint:
         name: "Check Python Style"
         uses: ./.github/workflows/style-python.yml
+    test:
+        name: "Test"
+        runs-on: ubuntu-latest
+        steps:
+            - run: |
+                  echo "Running tests..."
+    build:
+        needs: [lint, test]
+        name: "Build package"
+        runs-on: ubuntu-latest
+        steps:
+            - run: |
+                  echo "Building package..."
+    deploy:
+        needs: build
+        name: "Build package"
+        runs-on: ubuntu-latest
+        steps:
+            - run: |
+                  echo "Building package..."
