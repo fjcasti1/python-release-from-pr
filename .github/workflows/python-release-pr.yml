@@ -10,6 +10,10 @@ on:
 #     group: test-python-${{ github.head_ref }}
 #     cancel-in-progress: true
 
+# TODOS:
+#  - Caching dependencies
+#  - Concurrency settings
+#  - Permissions
 jobs:
     warning:
         name: "Warnning for release PR"
@@ -29,9 +33,22 @@ jobs:
         needs: [lint, test]
         name: "Build Python package"
         runs-on: ubuntu-latest
+        env:
+            python-version: "3.8.16"
+            package-dir: "./my_helper_package"
         steps:
-            - run: |
-                  echo "Building package..."
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+            - name: Set up python ${{ env.python-version }}
+              uses: actions/setup-python@v4
+              with:
+                  python-version: ${{ env.python-version }}
+            - name: Build
+              run: |
+                  python3 -m build
+            - name: Check wheels
+              run: |
+                  python3 -m check_wheel_contents dist/
     publish-package:
         needs: build
         if: github.event_name == 'push'
