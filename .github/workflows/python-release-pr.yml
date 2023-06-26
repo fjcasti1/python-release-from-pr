@@ -11,6 +11,11 @@ on:
 #     cancel-in-progress: true
 
 jobs:
+    warning:
+        name: "Warnning for release PR"
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "Show a warning for this PR will create a release of our python package, once merged"
     lint:
         name: "Test Python Style"
         uses: ./.github/workflows/style-python.yml
