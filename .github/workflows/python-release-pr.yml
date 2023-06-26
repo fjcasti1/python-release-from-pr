@@ -11,19 +11,11 @@ on:
 #     cancel-in-progress: true
 
 # TODOS:
-#  - Caching setup python
-#  - Caching dependencies
-#  - Fix scope of env variables
 #  - Permissions
 #  - Concurrency settings
 #  - Should we cache artifacts?
 env:
     python-version: 3.8
-    pip-version: 23.1.2
-    package-dir: "./my_helper_package"
-    build-version: 0.10.0
-    check-wheel-contents-version: 0.4.0
-    twine-version: 4.0.2
     publish-req-file: "./my_helper_package/requirements-publish.txt"
 jobs:
     warning:
@@ -44,6 +36,8 @@ jobs:
         needs: [lint, test]
         name: "Build Python package"
         runs-on: ubuntu-latest
+        env:
+            package-dir: "./my_helper_package"
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v3
@@ -54,26 +48,25 @@ jobs:
                   python-version: ${{ env.python-version }}
                   cache: "pip"
                   cache-dependency-path: ${{ env.publish-req-file }}
-                  restore-keys: "setup-python-"
             - name: Install dependencies
               run: pip install -r ${{ env.publish-req-file }}
             - name: Build
               working-directory: ${{ env.package-dir }}
-              run: |
-                  python3 -m build
+              run: python3 -m build
             - name: Check wheels
               working-directory: ${{ env.package-dir }}
               run: |
                   python3 -m check_wheel_contents dist/
                   python3 -m twine check dist/*
             - name: Upload artifacts
+              if: github.event_name == 'push'
               uses: actions/upload-artifact@v3
               with:
                   name: dist-files
                   path: ${{ env.package-dir }}/dist
     publish-package:
         needs: build
-        # if: github.event_name == 'push' || github.event_path == 'workflow_dispatch'
+        if: github.event_name == 'push' || github.event_path == 'workflow_dispatch'
         name: "Publish Python Package"
         runs-on: ubuntu-latest
         steps:
@@ -86,7 +79,6 @@ jobs:
                   python-version: ${{ env.python-version }}
                   cache: "pip"
                   cache-dependency-path: ${{ env.publish-req-file }}
-                  restore-keys: "setup-python-"
             - name: Install dependencies
               if: steps.setup-python.outputs.cache-hit == 'false'
               run: pip install -r ${{ env.publish-req-file }}
