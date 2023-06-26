@@ -57,12 +57,12 @@ jobs:
                   python -m pip install --upgrade pip==${{ env.pip-version }}
                   pip install build==${{ env.build-version }} check-wheel-contents==${{ env.check-wheel-contents-version }} twine==${{ env.twine-version }}
             - name: Build
+              working-directory: ${{ env.package-dir }}
               run: |
-                  cd "${{ env.package-dir }}"
                   python3 -m build
             - name: Check wheels
+              working-directory: ${{ env.package-dir }}
               run: |
-                  cd "${{ env.package-dir }}"
                   python3 -m check_wheel_contents dist/
                   python3 -m twine check dist/*
             - name: Upload artifacts
@@ -80,6 +80,7 @@ jobs:
               uses: actions/download-artifact@v3
               with:
                   name: dist-files
+                  path: dist/
             - name: Inspect artifact
               run: |
                   ls -ahl
