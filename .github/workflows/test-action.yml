@@ -1,0 +1,10 @@
+name: "Test custom action from public repo"
+
+on:
+    workflow_dispatch:
+
+jobs:
+    test:
+        name: "Test action"
+        runs-on: ubuntu-latest
+        uses: fjcasti1/python-release-on-pr@main
