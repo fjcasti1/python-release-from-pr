@@ -9,6 +9,8 @@ jobs:
     test:
         name: "Test action"
         runs-on: ubuntu-latest
-        run: |
-            echo "Hello"
+        steps:
+            - name: "Hello"
+              run: |
+                  echo "Hello"
         # uses: fjcasti1/python-release-on-pr@main
