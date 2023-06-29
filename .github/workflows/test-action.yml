@@ -13,4 +13,5 @@ jobs:
             - name: "Hello"
               run: |
                   echo "Hello"
-        # uses: fjcasti1/python-release-on-pr@main
+            - name: "Custom action fjcasti1/python-release-on-pr@main"
+              uses: fjcasti1/python-release-on-pr@main
