@@ -19,4 +19,4 @@ jobs:
                   release-gh: false
                   release-pypi: true
                   pypi-username: ${{ secrets.DUMMY_SECRET }}
-                  pypi-password: 3
+                  pypi-password: ${{ secrets.DUMMY_SECRET }}
