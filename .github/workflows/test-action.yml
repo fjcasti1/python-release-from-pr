@@ -2,7 +2,7 @@ name: "Test custom action from public repo"
 
 on:
     push:
-        branches: [main]
+    pull_request:
     workflow_dispatch:
 
 jobs:
