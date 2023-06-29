@@ -15,8 +15,8 @@ jobs:
                   echo "Hello"
             - name: "Custom action fjcasti1/python-release-on-pr@main"
               uses: fjcasti1/python-release-on-pr@main
-                with:
-                    release-gh: false
-                    release-pypi: true
-                    pypi-username: ${{ secrets.DUMMY_SECRET }}
-                    pypi-password: ${{ secrets.DUMMY_SECRET }}
+              with:
+                  release-gh: false
+                  release-pypi: true
+                  pypi-username: ${{ secrets.DUMMY_SECRET }}
+                  pypi-password: ${{ secrets.DUMMY_SECRET }}
