@@ -54,7 +54,7 @@ jobs:
             - name: Check version diff
               working-directory: ${{ env.package-dir }}
               run: |
-                  ! git diff --exit-code origin/${{ github.base_ref}} origin/${{ github.head_ref }} src/${{ env.package-name }}/__init__.py
+                  git diff --exit-code origin/${{ github.base_ref}} origin/${{ github.head_ref }} src/${{ env.package-name }}/__init__.py
     build:
         needs: [lint, test, versioning]
         name: "Build Python package"
