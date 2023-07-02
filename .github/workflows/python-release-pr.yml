@@ -36,6 +36,15 @@ jobs:
         steps:
             - run: |
                   echo "Running tests..."
+    versioning:
+        name: "Verify version bump"
+        runs-on: ubuntu-latest
+        env:
+            package-dir: "./my_helper_package"
+        steps:
+            - working-directory: ${{ env.package-dir }}
+              run: |
+                  ! git diff --exit-code main head src/ilsadvbisnvavojebaij/__init__.py
     build:
         needs: [lint, test]
         name: "Build Python package"
