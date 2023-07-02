@@ -109,6 +109,14 @@ jobs:
         outputs:
             package-new-version: ${{ steps.discover-version.outputs.package-new-version }}
         steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+            - name: Discover release version
+              id: discover-version
+              working-directory: ${{ env.package-dir }}/src
+              run: |
+                  version=$(python3 -c "import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__)")
+                  echo "package-new-version=$version" >> "$GITHUB_OUTPUT"
             - name: Download artifacts
               uses: actions/download-artifact@v3
               with:
@@ -124,14 +132,6 @@ jobs:
                   ls -ahl dist/*
                   echo "D"
                   pwd
-            - name: Checkout Repository
-              uses: actions/checkout@v3
-            - name: Discover release version
-              id: discover-version
-              working-directory: ${{ env.package-dir }}/src
-              run: |
-                  version=$(python3 -c "import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__)")
-                  echo "package-new-version=$version" >> "$GITHUB_OUTPUT"
             - name: Create draft release
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
