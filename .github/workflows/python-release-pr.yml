@@ -106,7 +106,7 @@ jobs:
         runs-on: ubuntu-latest
         permissions:
             actions: write
-            # checks: read|write|none
+            checks: write
             contents: read
             deployments: write
             id-token: write
@@ -114,7 +114,7 @@ jobs:
             discussions: write
             packages: write
             pages: write
-            # pull-requests: read|write|none
+            pull-requests: write
             repository-projects: write
             security-events: write
             statuses: write
