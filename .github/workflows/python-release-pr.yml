@@ -122,7 +122,6 @@ jobs:
               run: |
                   version=$(python3 -c "import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__)")
                   echo "package-new-version=$version" >> "$GITHUB_OUTPUT"
-              run: gh release list
             - name: Create draft release
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
