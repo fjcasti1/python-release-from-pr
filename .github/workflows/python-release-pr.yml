@@ -107,7 +107,7 @@ jobs:
         permissions:
             actions: write
             # checks: read|write|none
-            # contents: read|write|none
+            contents: read
             # deployments: read|write|none
             id-token: write
             # issues: read|write|none
