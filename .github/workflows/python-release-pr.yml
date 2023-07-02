@@ -46,7 +46,13 @@ jobs:
               uses: actions/checkout@v3
             - name: Print GH context
               run: |
-                  echo "JSON(context.github)"
+                  echo ${{ toJson(github) }}
+            - name: Print GH head_ref
+              run: |
+                  echo ${{ github.head_ref }}
+            - name: Print GH base_ref
+              run: |
+                  echo ${{ github.base_ref }}
             - working-directory: ${{ env.package-dir }}
               run: |
                   ! git diff --exit-code main head src/ilsadvbisnvavojebaij/__init__.py
