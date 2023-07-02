@@ -110,9 +110,9 @@ jobs:
               id: discover-version
               run: |
                 cmd=$(cat<<EOF
-import ilsadvbisnvavojebaij
-print(ilsadvbisnvavojebaij.__version__)
-EOF
+                import ilsadvbisnvavojebaij
+                print(ilsadvbisnvavojebaij.__version__)
+                EOF
 )
                 version=$(python3 -c "$cmd")
                 echo "$version"
@@ -120,6 +120,8 @@ EOF
               run: |
                 echo "${{ steps.discover-version.outputs.version }}"
             - run: gh release list
+            # Using the GitHub CLI, create a draft release with gh release create <version> --generate-notes --draft
+
 
 
     publish-package:
