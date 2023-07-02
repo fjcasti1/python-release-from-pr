@@ -23,6 +23,8 @@ env:
     twine-version: 4.0.2
     package-dir: ./my_helper_package
     package-name: ilsadvbisnvavojebaij
+permissions:
+
 jobs:
     warning:
         name: "Warnning for release PR"
@@ -100,6 +102,8 @@ jobs:
         needs: build
         name: "Test release"
         runs-on: ubuntu-latest
+        outputs:
+            package-new-version: ${{ steps.discover-version.outputs.package-new-version }}
         steps:
             - name: Download artifacts
               uses: actions/download-artifact@v3
@@ -112,14 +116,12 @@ jobs:
               id: discover-version
               working-directory: ${{ env.package-dir }}/src
               run: |
-                  pwd
-                  ls -ahl
-                  python -c "import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__)"
                   version=$(python3 -c "import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__)")
-                  echo "package-new-version=$version" >> "$GITHUB_ENV"
+                  echo "package-new-version=$version" >> "$GITHUB_OUTPUT"
             - name: Get release version
               run: |
                   echo "${{ env.package-new-version }}"
+                  echo "${{ steps.discover-version.outputs.package-new-version }}"
             - name: Get release list
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -127,7 +129,7 @@ jobs:
             - name: Create draft release
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: gh release create ${{ env.package-new-version }} --generate-notes --draft
+              run: gh release create ${{ steps.discover-version.outputs.package-new-version }} --generate-notes --draft
 
     publish-package:
         needs: build
