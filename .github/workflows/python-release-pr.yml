@@ -24,6 +24,8 @@ env:
     package-dir: ./my_helper_package
     package-name: ilsadvbisnvavojebaij
 permissions:
+    contetns: read
+    deployments: write
 
 jobs:
     warning:
