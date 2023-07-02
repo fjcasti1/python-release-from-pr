@@ -91,7 +91,7 @@ jobs:
                   python3 -m check_wheel_contents dist/
                   python3 -m twine check dist/*
             - name: Upload artifacts
-              if: github.event_name == 'push'
+              #   if: github.event_name == 'push'
               uses: actions/upload-artifact@v3
               with:
                   name: dist-files
