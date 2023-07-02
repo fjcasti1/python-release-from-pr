@@ -44,9 +44,6 @@ jobs:
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v3
-            # - name: Print GH context
-            #   run: |
-            #       echo ${{ toJson(github) }}
             - name: Print GH head_ref
               run: |
                   echo ${{ github.head_ref }}
@@ -55,7 +52,7 @@ jobs:
                   echo ${{ github.base_ref }}
             - working-directory: ${{ env.package-dir }}
               run: |
-                  ! git diff --exit-code main head src/ilsadvbisnvavojebaij/__init__.py
+                  ! git diff --exit-code ${{ github.base_ref}} ${{ github.head_ref }} src/ilsadvbisnvavojebaij/__init__.py
     build:
         needs: [lint, test, versioning]
         name: "Build Python package"
