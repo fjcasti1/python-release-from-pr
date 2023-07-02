@@ -116,6 +116,13 @@ jobs:
                   path: dist/
             - run: |
                   ls -ahl
+                  echo "A"
+                  ls -ahl dist
+                  echo "B"
+                  ls -ahl dist/
+                  echo "C"
+                  ls -ahl dist/*
+                  echo "D"
                   pwd
             - name: Checkout Repository
               uses: actions/checkout@v3
