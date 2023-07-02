@@ -46,7 +46,7 @@ jobs:
               uses: actions/checkout@v3
             - name: Checkout Repository (Base ref)
               uses: actions/checkout@v3
-                with:
+              with:
                   ref: ${{ github.base_ref }}
             - name: Print GH head_ref
               run: |
