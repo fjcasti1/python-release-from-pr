@@ -122,7 +122,7 @@ jobs:
                   echo "${{ env.package-new-version }}"
             - name: Get release list
               env:
-                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: gh release list
             # Using the GitHub CLI, create a draft release with gh release create <version> --generate-notes --draft
 
