@@ -104,7 +104,20 @@ jobs:
         needs: build
         name: "Test release"
         runs-on: ubuntu-latest
-        permissions: write-all
+        permissions:
+            actions: write
+            # checks: read|write|none
+            # contents: read|write|none
+            # deployments: read|write|none
+            id-token: write
+            # issues: read|write|none
+            # discussions: read|write|none
+            packages: write
+            # pages: read|write|none
+            # pull-requests: read|write|none
+            # repository-projects: read|write|none
+            # security-events: read|write|none
+            # statuses: read|write|none
         outputs:
             package-new-version: ${{ steps.discover-version.outputs.package-new-version }}
         steps:
