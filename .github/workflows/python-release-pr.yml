@@ -42,8 +42,12 @@ jobs:
         env:
             package-dir: "./my_helper_package"
         steps:
-            - name: Checkout Repository
+            - name: Checkout Repository (Head ref)
               uses: actions/checkout@v3
+            - name: Checkout Repository (Base ref)
+              uses: actions/checkout@v3
+                with:
+                  ref: ${{ github.base_ref }}
             - name: Print GH head_ref
               run: |
                   echo ${{ github.head_ref }}
