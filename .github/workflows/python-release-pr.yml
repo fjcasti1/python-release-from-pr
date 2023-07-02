@@ -96,6 +96,32 @@ jobs:
               with:
                   name: dist-files
                   path: ${{ env.package-dir }}/dist
+    test-release:
+        needs: build
+        name: "Publish Python Package"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Download artifacts
+              uses: actions/download-artifact@v3
+              with:
+                  name: dist-files
+                  path: dist/
+            - name: Discover release version
+              id: discover-version
+              run: |
+                cmd=$(cat<<EOF
+import ilsadvbisnvavojebaij
+print(ilsadvbisnvavojebaij.__version__)
+EOF
+)
+                version=$(python3 -c "$cmd")
+                echo "$version"
+            - name: Get release version
+              run: |
+                echo "${{ steps.discover-version.outputs.version }}"
+            - run: gh release list
+
+
     publish-package:
         needs: build
         if: github.event_name == 'push' || github.event_path == 'workflow_dispatch'
