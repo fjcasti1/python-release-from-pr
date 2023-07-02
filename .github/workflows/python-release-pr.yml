@@ -44,6 +44,8 @@ jobs:
         steps:
             - working-directory: ${{ env.package-dir }}
               run: |
+                  pwd
+                  ls -ahl
                   ! git diff --exit-code main head src/ilsadvbisnvavojebaij/__init__.py
     build:
         needs: [lint, test]
