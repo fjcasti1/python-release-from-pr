@@ -101,7 +101,7 @@ jobs:
                   name: dist-files
                   path: ${{ env.package-dir }}/dist
     test-release:
-        needs: build
+        # needs: build
         name: "Test release"
         runs-on: ubuntu-latest
         permissions:
@@ -121,11 +121,11 @@ jobs:
         outputs:
             package-new-version: ${{ steps.discover-version.outputs.package-new-version }}
         steps:
-            - name: Download artifacts
-              uses: actions/download-artifact@v3
-              with:
-                  name: dist-files
-                  path: dist/
+            # - name: Download artifacts
+            #   uses: actions/download-artifact@v3
+            #   with:
+            #       name: dist-files
+            #       path: dist/
             - name: Checkout Repository
               uses: actions/checkout@v3
             - name: Discover release version
