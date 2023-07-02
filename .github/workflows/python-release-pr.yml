@@ -42,20 +42,20 @@ jobs:
         env:
             package-dir: "./my_helper_package"
         steps:
-            - name: Checkout Repository (Head ref)
-              uses: actions/checkout@v3
-              with:
-                  ref: ${{ github.head_ref }}
-            - name: Checkout Repository (Base ref)
-              uses: actions/checkout@v3
-              with:
-                  ref: ${{ github.base_ref }}
-            - name: Print GH head_ref
-              run: |
-                  echo ${{ github.head_ref }}
-            - name: Print GH base_ref
-              run: |
-                  echo ${{ github.base_ref }}
+            # - name: Checkout Repository (Head ref)
+            #   uses: actions/checkout@v3
+            #   with:
+            #       ref: ${{ github.head_ref }}
+            # - name: Checkout Repository (Base ref)
+            #   uses: actions/checkout@v3
+            #   with:
+            #       ref: ${{ github.base_ref }}
+            # - name: Print GH head_ref
+            #   run: |
+            #       echo ${{ github.head_ref }}
+            # - name: Print GH base_ref
+            #   run: |
+            #       echo ${{ github.base_ref }}
             - working-directory: ${{ env.package-dir }}
               run: |
                   git diff --exit-code origin/${{ github.base_ref}} origin/${{ github.head_ref }} src/ilsadvbisnvavojebaij/__init__.py
