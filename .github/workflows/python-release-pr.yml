@@ -104,6 +104,7 @@ jobs:
         needs: build
         name: "Test release"
         runs-on: ubuntu-latest
+        permissions: write-all
         outputs:
             package-new-version: ${{ steps.discover-version.outputs.package-new-version }}
         steps:
