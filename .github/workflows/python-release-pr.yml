@@ -44,8 +44,8 @@ jobs:
         steps:
             - name: Checkout Repository (Head ref)
               uses: actions/checkout@v3
-            #   with:
-            #       ref: ${{ github.head_ref }}
+              with:
+                  ref: ${{ github.head_ref }}
             # - name: Checkout Repository (Base ref)
             #   uses: actions/checkout@v3
             #   with:
