@@ -111,11 +111,11 @@ jobs:
             deployments: write
             id-token: write
             # issues: read|write|none
-            # discussions: read|write|none
+            discussions: write
             packages: write
-            # pages: read|write|none
+            pages: write
             # pull-requests: read|write|none
-            # repository-projects: read|write|none
+            repository-projects: write
             security-events: write
             statuses: write
         outputs:
