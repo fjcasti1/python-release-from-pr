@@ -21,6 +21,8 @@ env:
     build-version: 0.10.0
     check-wheel-contents-version: 0.4.0
     twine-version: 4.0.2
+    package-dir: ./my_helper_package
+    package-name: ilsadvbisnvavojebaij
 jobs:
     warning:
         name: "Warnning for release PR"
@@ -39,9 +41,6 @@ jobs:
     versioning:
         name: "Verify version bump"
         runs-on: ubuntu-latest
-        env:
-            package-dir: ./my_helper_package
-            package-name: ilsadvbisnvavojebaij
         steps:
             - name: Checkout Repository (Head ref)
               uses: actions/checkout@v3
@@ -58,7 +57,7 @@ jobs:
                   RED: \033[0;31m
                   GREEN: \033[0;32m
               run: |
-                  if git diff --exit-code origin/${{ github.base_ref}} origin/${{ github.head_ref }} ${{ env.version-file}}; then
+                  if ! git diff --exit-code origin/${{ github.base_ref}} origin/${{ github.head_ref }} ${{ env.version-file}}; then
                     printf "${{ env.RED }}Version unchanged, check file ${{ env.version-file}}\n"
                     exit 1
                   else
@@ -70,8 +69,6 @@ jobs:
         needs: [lint, test, versioning]
         name: "Build Python package"
         runs-on: ubuntu-latest
-        env:
-            package-dir: "./my_helper_package"
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v3
