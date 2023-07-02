@@ -133,6 +133,7 @@ jobs:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                   gh release create pysdk/v${{ steps.discover-version.outputs.package-new-version }} --generate-notes --draft
+              #   DUMMY CHANGE
 
     publish-package:
         needs: build
