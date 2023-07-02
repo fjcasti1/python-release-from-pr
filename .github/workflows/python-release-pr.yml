@@ -102,7 +102,7 @@ jobs:
                   path: ${{ env.package-dir }}/dist
     publish-package:
         needs: build
-        # if: github.event_name == 'push' || github.event_path == 'workflow_dispatch'
+        if: github.event_name == 'push' || github.event_path == 'workflow_dispatch'
         name: "Publish Python Package"
         runs-on: ubuntu-latest
         permissions:
@@ -153,7 +153,7 @@ jobs:
                   TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
               run: |
                   echo "Publishing to Pypi..."
-              #   twine upload --verbose --non-interactive dist/*
+                  twine upload --verbose --non-interactive dist/*
 
             - name: "Sync to public repo"
               run: |
