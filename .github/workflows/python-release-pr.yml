@@ -116,10 +116,12 @@ jobs:
                   ls -ahl
                   python -c "import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__)"
                   version=$(python3 -c "import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__)")
-                  echo "$version"
+                  echo "package-new-version=$version" >> "$GITHUB_ENV"
             - name: Get release version
               run: |
                   echo "${{ steps.discover-version.outputs.version }}"
+                  echo "${{ steps.discover-version.env.package-new-version }}"
+                  echo "${{ env.package-new-version }}"
             - run: gh release list
             # Using the GitHub CLI, create a draft release with gh release create <version> --generate-notes --draft
 
