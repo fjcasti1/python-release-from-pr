@@ -114,7 +114,8 @@ jobs:
               run: |
                   pwd
                   ls -ahl
-                  version=$(python3 -c import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__))
+                  python -c "import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__)"
+                  version=$(python3 -c "import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__)")
                   echo "$version"
             - name: Get release version
               run: |
