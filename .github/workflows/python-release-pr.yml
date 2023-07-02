@@ -116,8 +116,8 @@ jobs:
             # pages: read|write|none
             # pull-requests: read|write|none
             # repository-projects: read|write|none
-            # security-events: read|write|none
-            # statuses: read|write|none
+            security-events: write
+            statuses: write
         outputs:
             package-new-version: ${{ steps.discover-version.outputs.package-new-version }}
         steps:
