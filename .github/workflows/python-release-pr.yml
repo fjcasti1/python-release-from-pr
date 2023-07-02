@@ -11,7 +11,6 @@ on:
 #     cancel-in-progress: true
 
 # TODOS:
-#  - Tag a commit action
 #  - Permissions
 #  - Concurrency settings
 #  - Should we cache artifacts?
