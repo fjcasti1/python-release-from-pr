@@ -98,7 +98,7 @@ jobs:
                   path: ${{ env.package-dir }}/dist
     test-release:
         needs: build
-        name: "Publish Python Package"
+        name: "Test release"
         runs-on: ubuntu-latest
         steps:
             - name: Download artifacts
