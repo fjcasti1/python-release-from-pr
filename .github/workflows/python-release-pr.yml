@@ -53,8 +53,17 @@ jobs:
                   ref: ${{ github.base_ref }}
             - name: Check version diff
               working-directory: ${{ env.package-dir }}
+              env:
+                  version-file: src/${{ env.package-name }}/__init__.py
               run: |
-                  ! git diff --exit-code origin/${{ github.base_ref}} origin/${{ github.head_ref }} src/${{ env.package-name }}/__init__.py
+                  if ! git diff --exit-code origin/${{ github.base_ref}} origin/${{ github.head_ref }} ${{ env.version-file}}; then
+                    echo "Version unchanged, check file ${{ env.version-file}}"
+                    exit 1
+                  else
+                    echo "Version changed, thank you!"
+                    exit 0
+                  fi
+
     build:
         needs: [lint, test, versioning]
         name: "Build Python package"
