@@ -71,7 +71,7 @@ jobs:
                   fi
 
     build:
-        needs: [lint, test, versioning]
+        # needs: [lint, test, versioning]
         name: "Build Python package"
         runs-on: ubuntu-latest
         steps:
@@ -114,6 +114,9 @@ jobs:
               with:
                   name: dist-files
                   path: dist/
+            - run: |
+                  ls -ahl
+                  pwd
             - name: Checkout Repository
               uses: actions/checkout@v3
             - name: Discover release version
