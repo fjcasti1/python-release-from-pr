@@ -44,9 +44,9 @@ jobs:
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v3
-            - name: Print GH context
-              run: |
-                  echo ${{ toJson(github) }}
+            # - name: Print GH context
+            #   run: |
+            #       echo ${{ toJson(github) }}
             - name: Print GH head_ref
               run: |
                   echo ${{ github.head_ref }}
