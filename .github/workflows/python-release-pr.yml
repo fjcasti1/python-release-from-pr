@@ -55,9 +55,11 @@ jobs:
               working-directory: ${{ env.package-dir }}
               env:
                   version-file: src/${{ env.package-name }}/__init__.py
+                  RED: \033[0;31m
+                  BOLD: $(tput bold)
               run: |
                   if ! git diff --exit-code origin/${{ github.base_ref}} origin/${{ github.head_ref }} ${{ env.version-file}}; then
-                    echo "Version unchanged, check file ${{ env.version-file}}"
+                    printf "${{ RED }}${{ BOLD }}Version unchanged, check file ${{ env.version-file}}\n"
                     exit 1
                   else
                     echo "Version changed, thank you!"
