@@ -124,7 +124,10 @@ jobs:
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: gh release list
-            # Using the GitHub CLI, create a draft release with gh release create <version> --generate-notes --draft
+            - name: Create draft release
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: gh release create ${{ env.package-new-version }} --generate-notes --draft
 
     publish-package:
         needs: build
