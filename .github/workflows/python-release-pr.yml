@@ -131,7 +131,8 @@ jobs:
             - name: Create draft release
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: gh release create ${{ steps.discover-version.outputs.package-new-version }} --generate-notes --draft
+              run: |
+                  gh release create pysdk/v${{ steps.discover-version.outputs.package-new-version }} --generate-notes --draft
 
     publish-package:
         needs: build
