@@ -40,7 +40,8 @@ jobs:
         name: "Verify version bump"
         runs-on: ubuntu-latest
         env:
-            package-dir: "./my_helper_package"
+            package-dir: ./my_helper_package
+            package-name: ilsadvbisnvavojebaij
         steps:
             - name: Checkout Repository (Head ref)
               uses: actions/checkout@v3
@@ -50,9 +51,10 @@ jobs:
               uses: actions/checkout@v3
               with:
                   ref: ${{ github.base_ref }}
-            - working-directory: ${{ env.package-dir }}
+            - name: Check version diff
+              working-directory: ${{ env.package-dir }}
               run: |
-                  ! git diff --exit-code origin/${{ github.base_ref}} origin/${{ github.head_ref }} src/ilsadvbisnvavojebaij/__init__.py
+                  ! git diff --exit-code origin/${{ github.base_ref}} origin/${{ github.head_ref }} src/${{ env.package-name }}/__init__.py
     build:
         needs: [lint, test, versioning]
         name: "Build Python package"
