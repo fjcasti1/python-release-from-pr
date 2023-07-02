@@ -71,7 +71,7 @@ jobs:
                   fi
 
     build:
-        # needs: [lint, test, versioning]
+        needs: [lint, test, versioning]
         name: "Build Python package"
         runs-on: ubuntu-latest
         steps:
@@ -100,9 +100,10 @@ jobs:
               with:
                   name: dist-files
                   path: ${{ env.package-dir }}/dist
-    test-release:
+    publish-package:
         needs: build
-        name: "Test release"
+        # if: github.event_name == 'push' || github.event_path == 'workflow_dispatch'
+        name: "Publish Python Package"
         runs-on: ubuntu-latest
         permissions:
             contents: write
@@ -111,27 +112,20 @@ jobs:
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v3
+
             - name: Discover release version
               id: discover-version
               working-directory: ${{ env.package-dir }}/src
               run: |
                   version=$(python3 -c "import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__)")
                   echo "package-new-version=$version" >> "$GITHUB_OUTPUT"
+
             - name: Download artifacts
               uses: actions/download-artifact@v3
               with:
                   name: dist-files
                   path: dist/
-            - run: |
-                  ls -ahl
-                  echo "A"
-                  ls -ahl dist
-                  echo "B"
-                  ls -ahl dist/
-                  echo "C"
-                  ls -ahl dist/*
-                  echo "D"
-                  pwd
+
             - name: Create draft release
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -142,48 +136,25 @@ jobs:
                   --draft \
                   dist/*
 
-    publish-package:
-        needs: build
-        if: github.event_name == 'push' || github.event_path == 'workflow_dispatch'
-        name: "Publish Python Package"
-        runs-on: ubuntu-latest
-        steps:
-            #   env:
-            #       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            #   uses: actions/github-script@v6
-            #   with:
-            #       script: |
-            #           github.rest.git.createRef({
-            #             owner: context.repo.owner,
-            #             repo: context.repo.repo,
-            #             ref: 'refs/tags/<tagname>',
-            #             sha: context.sha
-            #           })
-            - name: "Sync to public repo"
-              run: |
-                  echo "Syncing to public repo..."
-            # FROM HERE ON I CAN WRITE AN ACTION: python-release-on-pr
-            - name: Download artifacts
-              uses: actions/download-artifact@v3
-              with:
-                  name: dist-files
-                  path: dist/
             - name: Set up python ${{ env.python-version }}
               id: setup-python
               uses: actions/setup-python@v4
               with:
                   python-version: ${{ env.python-version }}
+
             - name: Install dependencies
               run: |
                   python -m pip install --upgrade pip==${{ env.pip-version }}
                   pip install twine==${{ env.twine-version }}
-            - name: "Tag commit"
-              run: |
-                  echo "Should tag a commit on merge"
+
             - name: "Publish Python package to Pypi"
               env:
                   TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
                   TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
               run: |
                   echo "Publishing to Pypi..."
-                  twine upload --verbose --non-interactive dist/*
+              #   twine upload --verbose --non-interactive dist/*
+
+            - name: "Sync to public repo"
+              run: |
+                  echo "Syncing to public repo..."
