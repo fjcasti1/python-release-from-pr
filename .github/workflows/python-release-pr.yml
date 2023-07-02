@@ -119,10 +119,11 @@ jobs:
                   echo "package-new-version=$version" >> "$GITHUB_ENV"
             - name: Get release version
               run: |
-                  echo "${{ steps.discover-version.outputs.version }}"
-                  echo "${{ steps.discover-version.env.package-new-version }}"
                   echo "${{ env.package-new-version }}"
-            - run: gh release list
+            - name: Get release list
+              env:
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+              run: gh release list
             # Using the GitHub CLI, create a draft release with gh release create <version> --generate-notes --draft
 
     publish-package:
