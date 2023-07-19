@@ -135,7 +135,6 @@ jobs:
                   --title "Python SDK ${{ steps.discover-version.outputs.package-new-version }}" \
                   --generate-notes \
                   --draft \
-                  --target ${{ github.ref_name }} \ 
                   dist/*
 
             - name: Set up python ${{ env.python-version }}
