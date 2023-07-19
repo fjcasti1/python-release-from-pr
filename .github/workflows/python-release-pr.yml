@@ -130,6 +130,9 @@ jobs:
             - name: Print head ref
               run: |
                   echo ${{ github.head_ref }}
+            - name: Print ref
+              run: |
+                  echo ${{ github.ref }}
             - name: Print GITHUB_SHA
               run: |
                   echo ${{ GITHUB_SHA }}
@@ -141,10 +144,13 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v3
               with:
-                  ref: ${{ github.head_ref }}
+                  ref: ${{ github.ref }}
             - name: Print head ref 2
               run: |
                   echo ${{ github.head_ref }}
+            - name: Print ref 2
+              run: |
+                  echo ${{ github.ref }}
             - name: Print GITHUB_SHA 2
               run: |
                   echo ${{ GITHUB_SHA }}
