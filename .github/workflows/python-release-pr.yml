@@ -111,6 +111,8 @@ jobs:
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v3
+            #   Need to checkout the commit sha that triggers the workflow
+            # Possibly for every checkout?
 
             - name: Discover release version
               id: discover-version
@@ -133,6 +135,7 @@ jobs:
                   --title "Python SDK ${{ steps.discover-version.outputs.package-new-version }}" \
                   --generate-notes \
                   --draft \
+                  --target ${{ github.head_ref }} \ 
                   dist/*
 
             - name: Set up python ${{ env.python-version }}
