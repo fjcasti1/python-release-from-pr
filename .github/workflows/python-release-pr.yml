@@ -130,6 +130,14 @@ jobs:
             - name: Print head ref
               run: |
                   echo ${{ github.head_ref }}
+            - name: Print GITHUB_SHA
+              run: |
+                  echo ${{ GITHUB_SHA }}
+                  echo $GITHUB_SHA
+            - name: Print GITHUB_REF
+              run: |
+                  echo ${{ GITHUB_REF }}
+                  echo $GITHUB_REF
             - name: Checkout Repository
               uses: actions/checkout@v3
               with:
@@ -137,6 +145,14 @@ jobs:
             - name: Print head ref 2
               run: |
                   echo ${{ github.head_ref }}
+            - name: Print GITHUB_SHA 2
+              run: |
+                  echo ${{ GITHUB_SHA }}
+                  echo $GITHUB_SHA
+            - name: Print GITHUB_REF 2
+              run: |
+                  echo ${{ GITHUB_REF }}
+                  echo $GITHUB_REF
             - name: Create draft release
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
