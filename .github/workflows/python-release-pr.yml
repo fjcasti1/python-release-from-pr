@@ -151,10 +151,10 @@ jobs:
                   echo ${{ github.ref }}
             - name: Print GITHUB_SHA 2
               run: |
-                  echo ${{ GITHUB_SHA }}
+                  echo $GITHUB_SHA
             - name: Print GITHUB_REF 2
               run: |
-                  echo ${{ GITHUB_REF }}
+                  echo $GITHUB_REF
             - name: Create draft release
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
