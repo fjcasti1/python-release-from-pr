@@ -134,8 +134,7 @@ jobs:
                   gh release create pysdk/v${{ steps.discover-version.outputs.package-new-version }} \
                   --title "Python SDK ${{ steps.discover-version.outputs.package-new-version }}" \
                   --generate-notes \
-                  --draft \
-                  --target ${{ github.sha }} \ 
+                  --target ${{ github.sha }} \
                   dist/*
 
             - name: Set up python ${{ env.python-version }}
