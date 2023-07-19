@@ -137,6 +137,9 @@ jobs:
                   --draft \
                   --target ${{ github.head_ref }} \ 
                   dist/*
+            - name: Print head ref
+              run: |
+                  echo ${{ github.head_ref }}
 
             - name: Set up python ${{ env.python-version }}
               id: setup-python
