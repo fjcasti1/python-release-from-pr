@@ -81,6 +81,9 @@ jobs:
               uses: actions/setup-python@v4
               with:
                   python-version: ${{ env.python-version }}
+            - name: Print ref_name
+              run: |
+                  echo ${{ github.ref_name }}
             - name: Install dependencies
               run: |
                   python -m pip install --upgrade pip==${{ env.pip-version }}
@@ -94,7 +97,7 @@ jobs:
                   python3 -m check_wheel_contents dist/
                   python3 -m twine check dist/*
             - name: Upload artifacts
-              #   if: github.event_name == 'push'
+              if: github.event_name == 'push'
               uses: actions/upload-artifact@v3
               with:
                   name: dist-files
@@ -135,7 +138,7 @@ jobs:
                   --title "Python SDK ${{ steps.discover-version.outputs.package-new-version }}" \
                   --generate-notes \
                   --draft \
-                  --target ${{ github.ref }} \ 
+                  --target ${{ github.ref_name }} \ 
                   dist/*
 
             - name: Set up python ${{ env.python-version }}
