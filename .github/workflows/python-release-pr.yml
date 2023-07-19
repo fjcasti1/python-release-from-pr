@@ -127,6 +127,16 @@ jobs:
                   name: dist-files
                   path: dist/
 
+            - name: Print head ref
+              run: |
+                  echo ${{ github.head_ref }}
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+              with:
+                  ref: ${{ github.head_ref }}
+            - name: Print head ref 2
+              run: |
+                  echo ${{ github.head_ref }}
             - name: Create draft release
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -137,9 +147,6 @@ jobs:
                   --draft \
                   --target ${{ github.head_ref }} \ 
                   dist/*
-            - name: Print head ref
-              run: |
-                  echo ${{ github.head_ref }}
 
             - name: Set up python ${{ env.python-version }}
               id: setup-python
