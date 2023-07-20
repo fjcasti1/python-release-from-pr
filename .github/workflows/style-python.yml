@@ -15,9 +15,9 @@ on:
     workflow_dispatch:
     workflow_call:
 
-concurrency:
-    group: test-python-${{ github.head_ref }}
-    cancel-in-progress: true
+# concurrency:
+#     group: test-python-${{ github.head_ref }}
+#     cancel-in-progress: true
 
 env:
     python-version: 3.8
