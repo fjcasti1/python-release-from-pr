@@ -29,6 +29,7 @@ env:
 
 jobs:
     lint:
+        name: ""
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
