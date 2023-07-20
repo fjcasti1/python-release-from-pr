@@ -29,7 +29,6 @@ env:
 
 jobs:
     lint:
-        name: "isort, black & flake8 check"
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
