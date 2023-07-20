@@ -9,8 +9,8 @@ on:
             - "python/**"
             - "sdk/python/**"
             - ".github/workflows/style-python.yml"
-        branches-ignore:
-            - pysdk/v* # This workflow is called as part of the python-release-pr workflow
+        # branches-ignore:
+        #     - pysdk/v* # This workflow is called as part of the python-release-pr workflow
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
     workflow_call:
