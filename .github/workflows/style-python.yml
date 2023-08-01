@@ -9,15 +9,15 @@ on:
             - "python/**"
             - "sdk/python/**"
             - ".github/workflows/style-python.yml"
-        branches-ignore:
-            - pysdk/v* # This workflow is called as part of the python-release-pr workflow
+        # branches-ignore:
+        #     - pysdk/v* # This workflow is called as part of the python-release-pr workflow
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
     workflow_call:
 
-concurrency:
-    group: test-python-${{ github.head_ref }}
-    cancel-in-progress: true
+# concurrency:
+#     group: test-python-${{ github.head_ref }}
+#     cancel-in-progress: true
 
 env:
     python-version: 3.8
@@ -29,7 +29,7 @@ env:
 
 jobs:
     lint:
-        name: "isort, black & flake8 check"
+        name: "Check Linting"
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
