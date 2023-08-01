@@ -133,7 +133,7 @@ jobs:
               run: |
                   gh release create pysdk/v${{ steps.discover-version.outputs.package-new-version }} \
                   --title "Python SDK ${{ steps.discover-version.outputs.package-new-version }}" \
-                  --generate-notes \
+                  --draft \
                   --target ${{ github.sha }} \
                   dist/*
 
