@@ -1,0 +1,71 @@
+name: Python SDK Bug Report
+description: Create a bug report found in the Python SDK to the engineering team
+title: "[PySdk Bug]: "
+labels: ["pysdk", "bug 🐛"]
+body:
+- type: markdown
+  attributes:
+    value: |
+      Thanks for taking the time to fill out this python SDK bug!
+
+- type: textarea
+  id: explanation
+  attributes:
+    label: What happened?
+    placeholder: "If you did any digging when this bug was encountered, and/or have an intuition of the bug, please describe."
+
+- type: textarea
+  id: repro
+  attributes:
+    label: Reproduction steps
+    description: "How do you trigger this bug? Please walk us through it step by step."
+    value: |
+      1.
+      2.
+      3.
+
+- type: textarea
+  id: error
+  attributes:
+    label: Error Message
+    placeholder: Paste error message here.
+    render: python
+
+- type: input
+  id: url
+  attributes:
+    label: Tutorial URL
+    description: "If this bug was encountered running one of our tutorials, please paste the public link for easy finding"
+    placeholder: "Public Tutorial URL (if any)"
+
+- type: input
+  id: sdk-version
+  attributes:
+    label: What was the Arize SDK version used?
+    description: To find out run: ```python from arize import __version__ as arize_version; print(arize_version)```
+    placeholder: "SDK Version"
+
+- type: dropdown
+  id: python-version
+  attributes:
+    label: What was the Python version used? To find out run (in your terminal): ```bash python --version```
+    options:
+      - "3.4"
+      - "3.5"
+      - "3.6"
+      - "3.7"
+      - "3.8"
+      - "3.9"
+      - "3.10"
+      - "3.11"
+      - "3.12"
+
+- type: dropdown
+  id: os
+  attributes:
+    label: What was the OS used?
+    options:
+      - MacOS
+      - Linux
+      - Windows
+      - Colab
