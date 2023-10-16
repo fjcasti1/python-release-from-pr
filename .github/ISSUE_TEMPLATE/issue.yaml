@@ -49,7 +49,7 @@ body:
   id: python-version
   attributes:
     label: What was the Python version used?
-    description: "To find out run (in your terminal): `bash python --version`"
+    description: "To find out run (in your terminal): `python --version`"
     options:
       - "3.4"
       - "3.5"
