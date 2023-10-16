@@ -42,13 +42,14 @@ body:
   id: sdk-version
   attributes:
     label: What was the Arize SDK version used?
-    description: "To find out run: ```python from arize import __version__ as arize_version; print(arize_version)```"
+    description: "To find out run (in python): `from arize import __version__ as arize_version; print(arize_version)`"
     placeholder: "SDK Version"
 
 - type: dropdown
   id: python-version
   attributes:
-    label: "What was the Python version used? To find out run (in your terminal): ```bash python --version```"
+    label: What was the Python version used?
+    description: "To find out run (in your terminal): `bash python --version`"
     options:
       - "3.4"
       - "3.5"
