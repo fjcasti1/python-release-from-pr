@@ -5,12 +5,12 @@ on:
         branches: [main]
         paths:
             - "my_helper_package/src/ilsadvbisnvavojebaij/**"
-            - ".github/workflows/style-python.yml"
+            - ".github/workflows/python-release.yml"
     pull_request:
         branches: [main]
         paths:
             - "my_helper_package/src/ilsadvbisnvavojebaij/**"
-            - ".github/workflows/style-python.yml"
+            - ".github/workflows/python-release.yml"
 
 env:
     python-version: 3.9

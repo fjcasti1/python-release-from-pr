@@ -4,6 +4,7 @@ on:
     push:
         branches: [main]
     pull_request:
+        branches: [main]
         # The branches below must be a subset of the branches above
         paths:
             - "my_helper_package/src/ilsadvbisnvavojebaij/**"
