@@ -20,7 +20,7 @@ env:
     check-wheel-contents-version: 0.4.0
     twine-version: 4.0.2
     pytest-version: 6.2.2
-    package-dir: ./my_helper_package/src/ilsadvbisnvavojebaij
+    package-dir: ./my_helper_package/
     package-name: ilsadvbisnvavojebaij
 permissions:
     contents: read
