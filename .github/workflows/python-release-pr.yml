@@ -135,7 +135,7 @@ jobs:
               id: discover-version
               working-directory: ${{ env.package-dir }}
               run: |
-                  version=$(python3 -c "import arize; print(arize.__version__)")
+                  version=$(python3 -c "import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__)")
                   echo "package-new-version=$version" >> "$GITHUB_OUTPUT"
 
             - name: Download artifacts
