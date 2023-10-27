@@ -4,13 +4,12 @@ on:
     push:
         branches: [main]
     pull_request:
-        branches: [main]
+        branches-ignore:
+            - main # This workflow is called as part of the python-release-pr workflow
         # The branches below must be a subset of the branches above
         paths:
             - "my_helper_package/src/ilsadvbisnvavojebaij/**"
             - ".github/workflows/style-python.yml"
-        # branches-ignore:
-        #     - main # This workflow is called as part of the python-release-pr workflow
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
     workflow_call:
