@@ -11,7 +11,7 @@ def add(a: Number, b: Number) -> Number:
 
 
 def subtract(a: Number, b: Number) -> Number:
-    logger.info("Subtracting scalars")
+    logger.info("Subtracting scalars!")
     return a - b
 
 
