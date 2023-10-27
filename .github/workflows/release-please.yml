@@ -17,8 +17,9 @@ jobs:
               with:
                   command: release-pr
                   release-type: python
-                  package-name: arize
-                  path: my_helper_package/**
+                  #   package-name: arize
+                  package-name: ilsadvbisnvavojebaij
+                  #   path: my_helper_package/**
                   changelog-path: my_helper_package/
                   #   changelog-notes-type: github
                   #   tag-separator: ??
