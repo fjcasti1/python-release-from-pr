@@ -1,50 +1,49 @@
 name: release-please
 on:
-    push:
-      branches:
-        - main
     workflow_dispatch:
-      
-  permissions:
+    push:
+        branches: [main]
+
+permissions:
     contents: write
     pull-requests: write
 
 jobs:
-  release-please:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: google-github-actions/release-please-action@v3
-        id: release
-        with:
-          command: release-pr
-          release-type: python
-          package-name: arize
-          path: my_helper_package/
-          changelog-path: my_helper_package/
-        #   changelog-notes-type: github
-        #   tag-separator: ??
-          default-branch: main
-          monorepo-tags: true
-          last-release-sha: 16eb17e6cd07d39d20111d438fd909acbf9374e5
-        #   release-search-depth:
-        #   commit-search-depth:
+    release-please:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: google-github-actions/release-please-action@v3
+              id: release
+              with:
+                  command: release-pr
+                  release-type: python
+                  package-name: arize
+                  path: my_helper_package/
+                  changelog-path: my_helper_package/
+                  #   changelog-notes-type: github
+                  #   tag-separator: ??
+                  default-branch: main
+                  monorepo-tags: true
+                  last-release-sha: 16eb17e6cd07d39d20111d438fd909acbf9374e5
+              #   release-search-depth:
+              #   commit-search-depth:
 
-    #   - uses: actions/setup-node@v2
-    #     if: ${{ steps.release.outputs.releases_created }}
-    #     with:
-    #       node-version: 18
-    #       registry-url: 'https://registry.npmjs.org'
+        #   - uses: actions/setup-node@v2
+        #     if: ${{ steps.release.outputs.releases_created }}
+        #     with:
+        #       node-version: 18
+        #       registry-url: 'https://registry.npmjs.org'
 
-    #   - name: Checkout repository
-    #     if: ${{ steps.release.outputs.releases_created }}
-    #     uses: actions/checkout@v4
+        #   - name: Checkout repository
+        #     if: ${{ steps.release.outputs.releases_created }}
+        #     uses: actions/checkout@v4
 
-    #   - name: Build
-    #     if: ${{ steps.release.outputs.releases_created }}
-    #     run: yarn && yarn run build
+        #   - name: Build
+        #     if: ${{ steps.release.outputs.releases_created }}
+        #     run: yarn && yarn run build
 
-    #   - name: Publish project
-    #     if: ${{ steps.release.outputs.releases_created }}
-    #     run: yarn run lerna:publish from-package --yes
-    #     env:
-    #       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        #   - name: Publish project
+        #     if: ${{ steps.release.outputs.releases_created }}
+        #     run: yarn run lerna:publish from-package --yes
+        #     env:
+        #       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
