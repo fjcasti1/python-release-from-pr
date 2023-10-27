@@ -11,8 +11,6 @@ on:
         paths:
             - "my_helper_package/src/ilsadvbisnvavojebaij/**"
             - ".github/workflows/python-release.yml"
-        branches-ignore:
-            - main # This workflow is called as part of the python-release-pr workflow
 
 env:
     python-version: 3.9
