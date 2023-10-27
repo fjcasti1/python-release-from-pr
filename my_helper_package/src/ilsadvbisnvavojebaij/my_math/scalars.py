@@ -6,7 +6,7 @@ Number: TypeAlias = int | float
 
 
 def add(a: Number, b: Number) -> Number:
-    logger.info("Adding scalars")
+    logger.info("Adding scalars!")
     return a + b
 
 
