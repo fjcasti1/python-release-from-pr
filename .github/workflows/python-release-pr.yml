@@ -1,16 +1,17 @@
 name: "Python Release"
 
 on:
-    push:
-        branches: [main]
-        paths:
-            - "my_helper_package/src/ilsadvbisnvavojebaij/**"
-            - ".github/workflows/python-release.yml"
-    pull_request:
-        branches: [main]
-        paths:
-            - "my_helper_package/src/ilsadvbisnvavojebaij/**"
-            - ".github/workflows/python-release.yml"
+    workflow_dispatch:
+    # push:
+    #     branches: [main]
+    #     paths:
+    #         - "my_helper_package/src/ilsadvbisnvavojebaij/**"
+    #         - ".github/workflows/python-release.yml"
+    # pull_request:
+    #     branches: [main]
+    #     paths:
+    #         - "my_helper_package/src/ilsadvbisnvavojebaij/**"
+    #         - ".github/workflows/python-release.yml"
 
 env:
     python-version: 3.9
