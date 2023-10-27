@@ -1,14 +1,156 @@
 name: "Python Release PR"
 
 on:
+    push:
+        branches: main
     pull_request:
-        branches: [pysdk/v*]
+        branches: main
+        paths:
+            - "sdk/python/**"
+            - ".github/workflows/conventional-commits.yml"
 
-# concurrency:
-#     group: test-python-${{ github.head_ref }}
-#     cancel-in-progress: true
+env:
+    python-version: 3.8
+    pip-version: 23.1.2
+    build-version: 0.10.0
+    check-wheel-contents-version: 0.4.0
+    twine-version: 4.0.2
+    package-dir: ./my_helper_package
+    package-name: ilsadvbisnvavojebaij
+permissions:
+    contents: read
+    deployments: write
 
 jobs:
+    warning:
+        name: "Warnning for release PR"
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "Show a warning for this PR will create a release of our python package, once merged"
     lint:
-        name: "Check Python Style"
+        name: "Test Python Style"
         uses: ./.github/workflows/style-python.yml
+    test:
+        name: "Run Python tests"
+        runs-on: ubuntu-latest
+        steps:
+            - run: |
+                  echo "Running tests..."
+    versioning:
+        name: "Verify version bump"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository (Head ref)
+              uses: actions/checkout@v3
+              with:
+                  ref: ${{ github.head_ref }}
+            - name: Checkout Repository (Base ref)
+              uses: actions/checkout@v3
+              with:
+                  ref: ${{ github.base_ref }}
+            - name: Check version diff
+              working-directory: ${{ env.package-dir }}
+              env:
+                  version-file: src/${{ env.package-name }}/__init__.py
+                  RED: \033[0;31m
+                  GREEN: \033[0;32m
+              # git diff --exit-code returns 1 when changes are detected and 0 when they are not
+              run: |
+                  if git diff --exit-code origin/${{ github.base_ref}} origin/${{ github.head_ref }} ${{ env.version-file}}; then
+                    printf "${{ env.RED }}Version unchanged, check file ${{ env.version-file}}\n"
+                    exit 1
+                  else
+                    printf "${{env.GREEN}}Version changed, thank you!"
+                    exit 0
+                  fi
+
+    build:
+        needs: [lint, test, versioning]
+        name: "Build Python package"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+            - name: Set up python ${{ env.python-version }}
+              id: setup-python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: ${{ env.python-version }}
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip==${{ env.pip-version }}
+                  pip install build==${{ env.build-version }} check-wheel-contents==${{ env.check-wheel-contents-version }} twine==${{ env.twine-version }}
+            - name: Build
+              working-directory: ${{ env.package-dir }}
+              run: python3 -m build
+            - name: Check wheels
+              working-directory: ${{ env.package-dir }}
+              run: |
+                  python3 -m check_wheel_contents dist/
+                  python3 -m twine check dist/*
+            - name: Upload artifacts
+              if: github.event_name == 'push'
+              uses: actions/upload-artifact@v3
+              with:
+                  name: dist-files
+                  path: ${{ env.package-dir }}/dist
+    publish-package:
+        needs: build
+        if: github.event_name == 'push' || github.event_path == 'workflow_dispatch'
+        name: "Publish Python Package"
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        outputs:
+            package-new-version: ${{ steps.discover-version.outputs.package-new-version }}
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+            #   Need to checkout the commit sha that triggers the workflow
+            # Possibly for every checkout?
+
+            - name: Discover release version
+              id: discover-version
+              working-directory: ${{ env.package-dir }}/src
+              run: |
+                  version=$(python3 -c "import ilsadvbisnvavojebaij; print(ilsadvbisnvavojebaij.__version__)")
+                  echo "package-new-version=$version" >> "$GITHUB_OUTPUT"
+
+            - name: Download artifacts
+              uses: actions/download-artifact@v3
+              with:
+                  name: dist-files
+                  path: dist/
+
+            - name: Create draft release
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  gh release create pysdk/v${{ steps.discover-version.outputs.package-new-version }} \
+                  --title "Python SDK ${{ steps.discover-version.outputs.package-new-version }}" \
+                  --draft \
+                  --target ${{ github.sha }} \
+                  dist/*
+
+            - name: Set up python ${{ env.python-version }}
+              id: setup-python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: ${{ env.python-version }}
+
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip==${{ env.pip-version }}
+                  pip install twine==${{ env.twine-version }}
+
+            - name: "Publish Python package to Pypi"
+              env:
+                  TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+                  TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+              run: |
+                  echo "Publishing to Pypi..."
+                  twine upload --verbose --non-interactive dist/*
+
+            - name: "Sync to public repo"
+              run: |
+                  echo "Syncing to public repo..."
