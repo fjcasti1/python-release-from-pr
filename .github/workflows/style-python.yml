@@ -4,20 +4,23 @@ on:
     push:
         branches: [main]
     pull_request:
+        branches-ignore:
+            - main # This workflow is called as part of the python-release-pr workflow
         # The branches below must be a subset of the branches above
         paths:
-            - "python/**"
-            - "sdk/python/**"
+            - "my_helper_package/src/ilsadvbisnvavojebaij/**"
             - ".github/workflows/style-python.yml"
-        # branches-ignore:
-        #     - pysdk/v* # This workflow is called as part of the python-release-pr workflow
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
     workflow_call:
 
+concurrency:
+    group: test-python-${{ github.head_ref }}
+    cancel-in-progress: true
+
 env:
-    python-version: 3.8
-    pip-version: 23.1.2
+    python-version: 3.9
+    pip-version: 21.2.2
     black-version: 22.3.0
     flake8-version: 5.0.4
     isort-version: 5.12.0
