@@ -11,7 +11,6 @@ on:
         paths:
             - "my_helper_package/src/ilsadvbisnvavojebaij/**"
             - ".github/workflows/python-release.yml"
-            # test
 
 env:
     python-version: 3.9
